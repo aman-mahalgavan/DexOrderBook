@@ -32,11 +32,15 @@ function* getProductsList() {
         });
     
     // TODO: Create an array of API Calls by looping over the productList response passing different product/owner addresses for each call.
-    let _array = [
-        axios.post('http://ec2-54-180-123-66.ap-northeast-2.compute.amazonaws.com:3000/GetProductInfo', {product: json.productList.products[1]}),
-        axios.post('http://ec2-54-180-123-66.ap-northeast-2.compute.amazonaws.com:3000/GetProductInfo', {product: json.productList.products[1]}),
-        axios.post('http://ec2-54-180-123-66.ap-northeast-2.compute.amazonaws.com:3000/GetProductInfo', {product: json.productList.products[1]})
-    ];
+    // let _array = [
+    //     axios.post('http://ec2-54-180-123-66.ap-northeast-2.compute.amazonaws.com:3000/GetProductInfo', {product: json.productList.products[1]}),
+    //     axios.post('http://ec2-54-180-123-66.ap-northeast-2.compute.amazonaws.com:3000/GetProductInfo', {product: json.productList.products[1]}),
+        
+    // ];
+    let _array = [];
+    json.productList.products.forEach( o => {
+        _array.push(axios.post('http://ec2-54-180-123-66.ap-northeast-2.compute.amazonaws.com:3000/GetProductInfo', {product: o}));
+    });
     for (let c of _array) {
         let x = yield c
         data.push(x.data);
