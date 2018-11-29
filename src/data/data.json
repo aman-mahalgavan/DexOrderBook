@@ -1,0 +1,81 @@
+{
+  "accountPositions": [
+    {
+      "Amount": 15000000,
+      "Hold": 3500000,
+      "ProductSymbol": "KRW"
+    },
+    {
+      "Amount": 1.527,
+      "Hold": 0.123547,
+      "ProductSymbol": "BTC"
+    },
+    {
+      "Amount": 15.12,
+      "Hold": 3.55,
+      "ProductSymbol": "ETH"
+    },
+    {
+      "Amount": 8510.21,
+      "Hold": 1350.1,
+      "ProductSymbol": "XRP"
+    }
+  ],
+  "orderFee": {
+    "maker": 0,
+    "taker": 0.00015
+  },
+  "currency": {
+    "coin": {
+      "BTCKRW": "level0.type4",
+      "ETHKRW": "level0.type3",
+      "XRPKRW": "level0.type1",
+      "ETHBTC": "level3.type1",
+      "DEFAULT": "levelDefault.type1"
+    },
+    "levels": {
+      "levelDefault": {
+        "min": 1000000000000,
+        "decimal": 0,
+        "symbol": "KRW",
+        "type1": {
+          "cal": 1
+        }
+      },
+      "level0": {
+        "min": 1000,
+        "decimal": 0,
+        "symbol": "KRW",
+        "type1": {
+          "cal": 1
+        },
+        "type2": {
+          "cal": 10
+        },
+        "type3": {
+          "cal": 100
+        },
+        "type4": {
+          "cal": 1000
+        }
+      },
+      "level3": {
+        "min": 0.0001,
+        "decimal": 8,
+        "symbol": "BTC",
+        "type1": {
+          "cal": 0.0001
+        },
+        "type2": {
+          "cal": 0.00001
+        },
+        "type3": {
+          "cal": 0.000001
+        },
+        "type4": {
+          "cal": 1e-7
+        }
+      }
+    }
+  }
+}
