@@ -38,8 +38,10 @@ function* getProductsList() {
         
     // ];
     let _array = [];
-    json.productList.products.forEach( o => {
-        _array.push(axios.post('http://ec2-54-180-123-66.ap-northeast-2.compute.amazonaws.com:3000/GetProductInfo', {product: o}));
+    json.productList.products.forEach( (o, index) => {
+        if(index > 0){
+            _array.push(axios.post('http://ec2-54-180-123-66.ap-northeast-2.compute.amazonaws.com:3000/GetProductInfo', {product: o}));
+        }
     });
     for (let c of _array) {
         let x = yield c
