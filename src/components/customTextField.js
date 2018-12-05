@@ -31,13 +31,14 @@ const styles = {
 
 const self = this;
 function CustomTextField(props) {
-    const { classes, fieldId, placeholderText, marginType, variantType, labelText } = props;
+    const { classes, fieldId, placeholderText, marginType, variantType, labelText, handleCustomTextFieldChange } = props;
 
     return (
         <TextField
         id={fieldId}
           label={labelText}
           className={classes.root}
+          onChange={handleCustomTextFieldChange}
         //   helperText="Some important text"
           margin={marginType}
         />

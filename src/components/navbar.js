@@ -80,13 +80,13 @@ const styles = theme => ({
 
 class PrimarySearchAppBar extends React.Component {
     constructor(props){
-        super(props)
+        super(props);
+        this.state = {
+            token1: '-',
+            token2: '-',
+            list: []
+        };
     }
-    state = {
-        token1: '',
-        token2: '',
-        list: []
-    };
 
     handleProfileMenuOpen = event => {
         this.setState({ anchorEl: event.currentTarget });
@@ -106,25 +106,40 @@ class PrimarySearchAppBar extends React.Component {
     };
 
     handleSelectChangeToken1 = event => {
-        this.setState({ [event.target.name]: event.target.value });
-        this.props.changeToken1(event.target.value);
+        this.setState({ token1: event.target.value.key });
+        this.props.changeToken1({token1: {key: event.target.value.key, value: event.target.value.value, code: event.target.value.code}});
     };
     handleSelectChangeToken2 = event => {
-        this.setState({ [event.target.name]: event.target.value });
-        this.props.changeToken2(event.target.value);
+        this.setState({ token2: event.target.value.key });
+        this.props.changeToken2({token2: {key: event.target.value.key, value: event.target.value.value, code: event.target.value.code}});
     };
 
     constructSelectList = (data) => {
+        console.log("Constructing lists --> ", data);
         let refinedData = data.map( o => {
             console.log("NAVBAR DATA --> ", o["name"]);
-            return o["name"];
+            return {
+                key: o['name'], 
+                value: o['address'], 
+                dividend: o['dividend'],
+                symbol: o['symbol'],
+                code: o['code'],
+                address: o['address']
+            };
         })
-
-        this.state.list = refinedData;
+        this.setState({list: refinedData})
+        // this.state.list = refinedData;
     }
 
-    componentWillReceiveProps = (props) => {
-        this.constructSelectList(props.data);
+    componentDidUpdate = (prevProps) => {
+        if(this.props.data && this.props.data.length > 0 && this.props.data !== prevProps.data){
+            this.setState({list: this.props.data});
+            this.constructSelectList(this.props.data);
+        }
+    }
+
+    componentDidMount = () => {
+        this.constructSelectList(this.props.data);
     }
 
     render() {
@@ -155,7 +170,7 @@ class PrimarySearchAppBar extends React.Component {
                                         <em>None</em>
                                     </MenuItem>
                                     {this.state.list.map( (o, index) => {
-                                        return <MenuItem key={index} value={o}>{o}</MenuItem>
+                                        return <MenuItem key={index} value={{value: o.value, key: o.key, code: o.code}}>{o.key}</MenuItem>
                                     })}
                                     {/* <MenuItem value={"BTC"}>BTC</MenuItem>
                                     <MenuItem value={"ETH"}>ETH</MenuItem>
@@ -178,7 +193,7 @@ class PrimarySearchAppBar extends React.Component {
                                         <em>None</em>
                                     </MenuItem>
                                     {this.state.list.map( (o, index) => {
-                                        return <MenuItem key={index} value={o}>{o}</MenuItem>
+                                        return <MenuItem key={index} value={{value: o.value, key: o.key, code: o.code}}>{o.key}</MenuItem>
                                     })}
                                     {/* <MenuItem value={"BTC"}>BTC</MenuItem>
                                     <MenuItem value={"ETH"}>ETH</MenuItem>
