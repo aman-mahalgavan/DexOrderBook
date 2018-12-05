@@ -33,7 +33,7 @@ class RootContainer extends Component {
         this.formSubmit = this.formSubmit.bind(this);
         this.handleInput1 = this.handleInput1.bind(this);
         this.formSubmit1 = this.formSubmit1.bind(this);
-        this.owner = "0x5465e5577311757fab88542bc610b9d9a6bc2af2";
+        this.owner = "SANDEEP";
     }
 
     componentDidMount() {
@@ -43,7 +43,7 @@ class RootContainer extends Component {
             "product1": "0x920ba83ab81d0A0029Db518059564e7846c2A0CE"
         }
         // this.props.depositERC20(sampleData.owner, sampleData.product1, 1000);
-        // this.props.getProductsList();
+        this.props.getProductsList();
         // this.props.getBalance(sampleData.owner, sampleData.product);
         // this.props.depositETH(sampleData);
     }
@@ -63,9 +63,9 @@ class RootContainer extends Component {
             this.setState({balance2: this.props.balance2});
             this.fetchOrderBook();
         }
-        if(this.props.ownerETHAddress !== prevProps.ownerETHAddress){
-            this.setState({owner: this.props.ownerETHAddress});
-        }
+        // if(this.props.ownerETHAddress !== prevProps.ownerETHAddress){
+        //     this.setState({owner: this.props.ownerETHAddress});
+        // }
     }
 
     handlePopup = (type) => {
@@ -273,13 +273,13 @@ class RootContainer extends Component {
                     {"Data here ->" + JSON.stringify(this.props)}
                 </pre>
 
-                <Button onClick={() => this.props.generateOwner()}>Generate Owner</Button>
-                <Button onClick={() => this.props.getEther(this.state.owner)}>Get ETHER</Button>
-                <pre>
+                {/* <Button onClick={() => this.props.generateOwner()}>Generate Owner</Button> */}
+                <Button onClick={() => this.props.getEther(this.owner)}>Get ETHER</Button>
+                {/* <pre>
                     {"Owner here ->" + JSON.stringify(this.props.ownerETHAddress)}
                     <br/>
                     {"Owner From State ->" + JSON.stringify(this.state.owner)}
-                </pre>
+                </pre> */}
                 <pre>
                     {"Total Ether ->" + JSON.stringify(this.props.totalEther)}
                 </pre>
