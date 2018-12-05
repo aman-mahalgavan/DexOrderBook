@@ -133,8 +133,9 @@ function* generateOwner() {
 }
 
 function* getEther(params) {
+    console.log("Owner in params --> ", params);
     const json = yield axios.post(`${awsNodeServerURL}/buyETH`,{
-        owner: params.payload.owner.account
+        owner: params.payload.owner
     })
     .then(response => {
         return response.data;

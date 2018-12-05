@@ -63,6 +63,9 @@ class RootContainer extends Component {
             this.setState({balance2: this.props.balance2});
             this.fetchOrderBook();
         }
+        if(this.props.ownerETHAddress !== prevProps.ownerETHAddress){
+            this.setState({owner: this.props.ownerETHAddress});
+        }
     }
 
     handlePopup = (type) => {
@@ -271,9 +274,14 @@ class RootContainer extends Component {
                 </pre>
 
                 <Button onClick={() => this.props.generateOwner()}>Generate Owner</Button>
-                <Button onClick={() => this.props.getEther(this.props.ethAddress)}>Get ETHER</Button>
+                <Button onClick={() => this.props.getEther(this.state.owner)}>Get ETHER</Button>
                 <pre>
                     {"Owner here ->" + JSON.stringify(this.props.ownerETHAddress)}
+                    <br/>
+                    {"Owner From State ->" + JSON.stringify(this.state.owner)}
+                </pre>
+                <pre>
+                    {"Total Ether ->" + JSON.stringify(this.props.totalEther)}
                 </pre>
 
                 <Grid container direction="row">
@@ -600,7 +608,8 @@ const mapStateToProps = (state) => ({
     sellOrder: state.sellOrder,
     orderBook: state.orderBook,
     ownerETHAddress: state.owner,
-    ethAddress: state.ethAddress
+    ethAddress: state.ethAddress,
+    totalEther: state.etherBalance
 })
 
 const mapDispatchToProps = (dispatch) => {
