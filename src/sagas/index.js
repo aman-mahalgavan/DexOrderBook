@@ -5,7 +5,8 @@ function* getOwners() {
     const json = yield axios.get(`${awsNodeServerURL}/GetOwnerList`)
         .then(response => {
             return response.data;
-        });    
+        })
+        .catch(err => err);    
   yield put({ type: "RECEIVED_DATA", allOwners: json });
 }
 
@@ -24,7 +25,7 @@ function* depositERC20(params) {
     const json = yield axios.post(`${awsNodeServerURL}/depositERC20`, {owner: params.payload.owner, token: params.payload.product, amount: params.payload.amount})
         .then(response => {
             return response.data;
-        }); 
+        }).catch(err => err); 
   yield put({ type: "DEPOSITED_ERC20", deposited_ERC20: json });
 }
 
@@ -32,7 +33,7 @@ function* withdrawERC20(params) {
     const json = yield axios.post(`${awsNodeServerURL}/withdrawERC20`, {owner: params.payload.owner, token: params.payload.product, amount: params.payload.amount})
         .then(response => {
             return response.data;
-        });    
+        }).catch(err => err);   
   yield put({ type: "WITHDRAWN_ERC20", withdrawn_ERC20: json });
 }
 
@@ -41,7 +42,7 @@ function* getProductInfo(params) {
     const json = yield axios.post(`${awsNodeServerURL}/GetProductInfo`, {owner: params.payload.owner, product: params.payload.product})
         .then(response => {
             return response.data;
-        });    
+        }).catch(err => err);
   yield put({ type: "RECEIVED_PRODUCT_INFO", productInfo: json });
 }
 
@@ -51,7 +52,7 @@ function* getProductsList() {
     const json = yield axios.get(`${awsNodeServerURL}/GetProductList`)
         .then(response => {
             return response.data;
-        });
+        }).catch(err => err);
     // localStorage.setItem('products', JSON.stringify(json));
     // TODO: Create an array of API Calls by looping over the productList response passing different product/owner addresses for each call.
     // let _array = [
@@ -78,7 +79,7 @@ function* getAccounts() {
     const json = yield axios.get(`${awsNodeServerURL}/GetAccountList`)
         .then(response => {
             return response.data;
-        });    
+        }).catch(err => err);
   yield put({ type: "RECEIVED_ACCOUNTS", allAccounts: json });
 }
 
@@ -86,7 +87,7 @@ function* getBalance(params) {
     const json = yield axios.post(`${awsNodeServerURL}/GetBalance`, {owner: params.payload.owner, product: params.payload.product})
         .then(response => {
             return response.data;
-        });    
+        }).catch(err => err);
     if(params.payload.flag === 'token1'){
         yield put({ type: "RECEIVED_BALANCE1", balance1: json });
     }else if(params.payload.flag === 'token2'){
@@ -109,7 +110,7 @@ function* addOwner(owner, amount) {
     const json = yield axios.post(`${awsNodeServerURL}/AddOwner`, {owner, amount})
         .then(response => {
             return response.data;
-        });    
+        }).catch(err => err);
   yield put({ type: "ADDED_NEW_OWNER", data: json, });
 }
 
@@ -117,7 +118,7 @@ function* addProduct() {
     const json = yield axios.post(`${awsNodeServerURL}/AddProduct`)
         .then(response => {
             return response.json();
-        });    
+        }).catch(err => err);
   yield put({ type: "ADDED_NEW_PRODUCT", data: json });
 }
 
@@ -125,7 +126,7 @@ function* generateOwner() {
     const json = yield axios.get(`${awsNodeServerURL}/createETHAccount`)
     .then(response => {
         return response.data;
-    });
+    }).catch(err => err);
     const products = yield* getProductsList();
     yield put({ type: "RECEIVED_PRODUCTS_LIST", productsList: products });
 
@@ -139,7 +140,7 @@ function* getEther(params) {
     })
     .then(response => {
         return response.data;
-    });    
+    }).catch(err => err);    
     yield put({ type: "RECEIVED_ETHER", ether: json });
 }
 
@@ -158,7 +159,7 @@ function* LimitOrder(params) {
     })
         .then(response => {
             return response.data;
-        });    
+        }).catch(err => err);
   yield put({ type: "BUY_ORDER_RECEIVED", buyOrder: json });
 }
 
